@@ -47,6 +47,6 @@ public class QuickUnion
 		
 	}
 
-	private int a[] = new int [10];
+	private int[] a = new int [10];
 	private int currVertexCount;
 }
