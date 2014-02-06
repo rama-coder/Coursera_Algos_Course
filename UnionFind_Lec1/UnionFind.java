@@ -1,3 +1,6 @@
+// Need to implement QuickUnion and Weighted Quick Union yet
+// Already done with quick find
+
 public class UnionFind
 {
 	public static void main(String args[])
