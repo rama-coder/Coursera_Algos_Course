@@ -12,10 +12,13 @@
 
 public class QuickUnionWithPathCompression {
     int [] id;
+    int count;
 
     public QuickUnionWithPathCompression(int N)
     {
         id = new int[N];
+	count = N;
+
         for(int i=0; i<N; i++)
         {
             id[i] = i;
@@ -30,6 +33,7 @@ public class QuickUnionWithPathCompression {
         return v;
     }
 
+    // Changes the parent of every node on its traversal to point to its grand parent
     private int root1(int v)
     {
         while (v != id[v])
@@ -40,6 +44,7 @@ public class QuickUnionWithPathCompression {
         return v;
     }
 
+    // Changes the parent of every node on its traversal to point to root
     private int root2(int v)
     {
         int vRoot = root(v);
@@ -64,7 +69,18 @@ public class QuickUnionWithPathCompression {
         int v1Root = root2(v1);
         int v2Root = root2(v2);
 
+	if (v1Root == v2Root)
+	{
+		StdOut.println("Gives nodes %d and %d are already connected", v1, v2);
+		return;
+	}
+	count--;
         id[v1Root] = v2Root;
+    }
+
+    public int count()
+    {
+	    return count;
     }
 
     public static void main(String []args)

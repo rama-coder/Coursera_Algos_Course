@@ -1,0 +1,53 @@
+====================
+Java Memory Sizes
+====================
+
+1. 
+
+Standard sizes => 
+
+boolean = byte = 1B
+char = 2B
+int = float = 4B
+long = double = 8B
+
+Arrays have 24B extra overhead. =>
+
+And they take x times the number of elements where x is primitive size + 24.
+
+char[] = 2N + 24 
+int [] = 4N + 24
+double [] = 8N + 24
+
+For 2-D arrays of M by N =>
+
+char [][] = ~2MN
+int [][] = ~4MN
+double [][] = ~8MN
+
+Object overhead => 16B
+Reference => 8B
+Padding => Each object uses a multiple of 8 bytes
+
+Inner class object references will take 8B.
+
+2. Following Date object uses 32 bytes.
+
+class Date
+{	
+	int day, month, year;
+}
+
+Object overhead = 16 B
+day + month + year = 12 B (Integer is 4 bytes)
+Padding = 4 bytes (to make it multiple of 8B)
+
+3. Following String object takes 2N + 64 Bytes.
+
+public class String // Object overhead = 16B
+{
+	private char[] value; // 2N + 24B (Array) + 8B (object reference)
+	private int offset, count, hash; // 12B
+}
+
+Total = 16B + 2N + 32B + 12B + 4B of padding = 2N + 64 bytes
