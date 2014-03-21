@@ -13,7 +13,7 @@ public class Deque<Item> implements Iterable<Item> {
     // No need to add constructor as it is a private class
     // access modifiers does not exist
 
-    class Node<Item>
+    private class Node<Item>
     {
         Item data;
         Node<Item> prev, next;
@@ -31,7 +31,7 @@ public class Deque<Item> implements Iterable<Item> {
         return new DequeIterator();
     }
 
-    class DequeIterator implements Iterator<Item>
+    private class DequeIterator implements Iterator<Item>
     {
         Node<Item> current = first;
 
@@ -172,7 +172,7 @@ public class Deque<Item> implements Iterable<Item> {
         for(String s:dequeOfStrings)
             StdOut.printf("\nEncountered %s", s);
 
-        StdOut.println("Removing the elements from Deque...");
+        StdOut.println("\nRemoving the elements from Deque...");
 
         dequeOfStrings.removeFirst();
         StdOut.println("Size of the Deque = "+ dequeOfStrings.size());
