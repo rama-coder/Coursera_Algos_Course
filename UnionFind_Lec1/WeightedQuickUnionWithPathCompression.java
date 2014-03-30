@@ -12,11 +12,14 @@
 
 public class WeightedQuickUnionWithPathCompression {
     int [] id, size;
+    int count;
 
     public WeightedQuickUnionWithPathCompression(int N)
     {
         id = new int[N];
         size = new int[N];
+	count = N;
+
         for(int i=0; i<N; i++)
         {
             id[i] = i;
@@ -61,6 +64,11 @@ public class WeightedQuickUnionWithPathCompression {
         return (root2(v1) == root2(v2));
     }
 
+    public int count()
+    {
+	    return N;
+    }
+
     public void union(int v1, int v2)
     {
         int v1Root = root2(v1);
@@ -68,6 +76,8 @@ public class WeightedQuickUnionWithPathCompression {
 
         if (v1Root == v2Root)
             return;
+
+	count--;
 
         // V1 is in large tree hence add v2 under v1 tree
         if (size[v1Root] > size[v2Root])

@@ -10,19 +10,29 @@
 
 public class WeightedQuickUnion {
     int [] id, size;
-
+    int count;
+    
     public WeightedQuickUnion(int N)
     {
         id = new int[N];
         size = new int[N];
-
+        count = N;
+        
         for(int i=0; i<N; i++)
         {
             id[i] = i;
             size[i] = 1;
         }
+        
     }
 
+    // Return the number of connected components
+    
+    public int count()
+    {
+        return count;
+    }
+    
     private int root(int v)
     {
         while (v != id[v])
@@ -45,9 +55,12 @@ public class WeightedQuickUnion {
 
         if (v1Root == v2Root)
         {
-            StdOut.printf("%d and %d are under same tree", v1, v2);
+            StdOut.printf("%d and %d are under same tree hence skipping union", v1, v2);
+            return;
         }
 
+        count--;
+        
         if (size[v1Root] > size[v2Root])
         {
             id[v2Root] = v1Root;
