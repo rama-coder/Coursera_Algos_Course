@@ -18,7 +18,7 @@ public class Digraph {
 
     public Digraph(In in)
     {
-        this.V = in.readInt();
+        this(in.readInt());
         E = in.readInt();
 
         for(int i = 0; i < E; i++)
@@ -97,6 +97,10 @@ public class Digraph {
         System.out.printf("\nPrinting the graph...\n");
 
         g.print();
+
+        System.out.printf("\nRunning directed DFS ....");
+
+        DirectedDFS dg = new DirectedDFS(g, 0);
 
     }
 }
