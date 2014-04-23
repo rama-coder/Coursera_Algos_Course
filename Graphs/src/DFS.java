@@ -73,4 +73,12 @@ public class DFS {
 
         return sb.toString();
     }
+
+    public void printAllPathsFromSource(Graph g)
+    {
+        for(int i=0; i < g.V(); i++)
+        {
+            printPath(i);
+        }
+    }
 }

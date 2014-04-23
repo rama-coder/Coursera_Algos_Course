@@ -134,18 +134,9 @@ public class Graph
 
 //                g.print();
 
-//                DFS dfsTraversal = new DFS(g, 0);
-//
-//                int x = -1;
-//                while (x != 0) {
-//                    System.out.println("\nEnter the edge for checking connectivity");
-//                    x = StdIn.readInt();
-//                    boolean connected = dfsTraversal.isConnected(x);
-//                    StdOut.printf("0 and %d are connected => %b", x, connected);
-//
-//                    if (connected)
-//                        dfsTraversal.printPath(x);
-//                }
+                DFS dfsTraversal = new DFS(g, 0);
+
+                dfsTraversal.printAllPathsFromSource(g);
 
 //                Paths paths = new Paths(g, 0);
 //
@@ -173,19 +164,20 @@ public class Graph
 //                        StdOut.println(" => " + bfs.getPath(x));
 //                }
 
-                CC cc = new CC(g, 0);
-
-                g.print();
-                StdOut.println("\n\nCC count = " + cc.count());
-
-                while(true) {
-                    In in2 = new In();
-                    StdOut.printf("\n\nEnter 2 vertices separated by space...\n");
-                    int v = in2.readInt();
-                    int w = in2.readInt();
-
-                    StdOut.printf("\n\n%d and %d are connected = %b", v, w, cc.connected(v, w));
-                }
+//                CC cc = new CC(g, 0);
+//
+//                g.print();
+//                StdOut.println("\n\nCC count = " + cc.count());
+//
+//                while(true) {
+//                    In in2 = new In();
+//                    StdOut.printf("\n\nEnter 2 vertices separated by space...\n");
+//                    int v = in2.readInt();
+//                    int w = in2.readInt();
+//
+//                    StdOut.printf("\n\n%d and %d are connected = %b", v, w, cc.connected(v, w));
+//                    cc.printPath(v, w);
+//                }
 
             }
 }

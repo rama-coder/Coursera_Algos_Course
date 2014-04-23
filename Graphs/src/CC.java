@@ -53,6 +53,34 @@ public class CC
         }
     }
 
+    public void printPath(int v, int w)
+    {
+        if ( ! connected(v, w))
+            return;
+
+        boolean pathFound = false;
+
+        int count = 0;
+        for(int x=v; x != w && count < V; x = edgeTo[x],count++)
+        {
+            StdOut.printf("\nVisited %d", x);
+        }
+
+        if (count >= V) {
+            StdOut.printf("Previous path is invalid hence rewalking");
+            count = 0;
+
+            for(int x=w; x != v && count < V; x = edgeTo[x],count++)
+            {
+                StdOut.printf("\nVisited %d", x);
+            }
+
+            StdOut.printf("\nLast node Visited %d", v);
+        }
+        else
+            StdOut.printf("\nLast node Visited %d", w);
+
+    }
 
 
 }
