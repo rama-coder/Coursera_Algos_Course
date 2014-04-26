@@ -7,9 +7,9 @@ import java.util.TreeSet;
  */
 public class WordNet
 {
-    private TreeSet<String> nouns;
-    private HashMap<String, String> synsetIdMap;
-    private HashMap<String, TreeSet<Integer>> hyperIdMap;
+    private HashMap<Integer,String> nouns;
+    private HashMap<Integer, String> synsetIdMap;
+    private HashMap<Integer, TreeSet<Integer>> hyperIdMap;
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms)
@@ -17,9 +17,9 @@ public class WordNet
         In synsetsIn = new In(synsets);
         In hypernymsIn = new In(hypernyms);
 
-        nouns = new TreeSet<String>();
-        synsetIdMap = new HashMap<String, String>();
-        hyperIdMap = new HashMap<String, TreeSet<Integer>>();
+        nouns = new HashMap<Integer,String>();
+        synsetIdMap = new HashMap<Integer, String>();
+        hyperIdMap = new HashMap<Integer, TreeSet<Integer>>();
 
         String synIdLine;
         String [] synIdLineWords;
@@ -28,8 +28,9 @@ public class WordNet
         {
             synIdLine = synsetsIn.readLine();
             synIdLineWords = synIdLine.split(",");
-
-            synsetIdMap.put(synIdLineWords[0], synIdLineWords[1]);
+            int synId = Integer.parseInt(synIdLineWords[0]);
+            nouns.put(synId, synIdLineWords[1]);
+            synsetIdMap.put(synId, synIdLineWords[2]);
         }
 
         String hyperIdLine;
@@ -44,20 +45,20 @@ public class WordNet
             for(int i=1; i < synIdLineWords.length; i++)
                 hyperIds.add(Integer.parseInt(synIdLineWords[i]));
 
-            hyperIdMap.put(synIdLineWords[0], hyperIds);
+            hyperIdMap.put(Integer.parseInt(synIdLineWords[0]), hyperIds);
         }
     }
 
     // the set of nouns (no duplicates), returned as an Iterable
     public Iterable<String> nouns()
     {
-        return nouns;
+        return nouns.values();
     }
 
     // is the word a WordNet noun?
     public boolean isNoun(String word)
     {
-        return nouns.contains(word);
+        return nouns.values().contains(word);
     }
 
     // distance between nounA and nounB (defined below)
@@ -76,6 +77,6 @@ public class WordNet
     // for unit testing of this class
     public static void main(String[] args)
     {
-
+            WordNet wn = new WordNet(args[0], args[1]);
     }
 }
