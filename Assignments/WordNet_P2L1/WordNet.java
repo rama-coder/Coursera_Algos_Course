@@ -9,7 +9,7 @@ public class WordNet
 {
     private TreeSet<String> nouns;
     private HashMap<String, String> synsetIdMap;
-    private HashMap<String, TreeSet<String>> hyperIdMap;
+    private HashMap<String, TreeSet<Integer>> hyperIdMap;
 
     // constructor takes the name of the two input files
     public WordNet(String synsets, String hypernyms)
@@ -19,7 +19,7 @@ public class WordNet
 
         nouns = new TreeSet<String>();
         synsetIdMap = new HashMap<String, String>();
-        hyperIdMap = new HashMap<String, TreeSet<String>>();
+        hyperIdMap = new HashMap<String, TreeSet<Integer>>();
 
         String synIdLine;
         String [] synIdLineWords;
@@ -39,10 +39,10 @@ public class WordNet
         {
             hyperIdLine = hypernymsIn.readLine();
             synIdLineWords = hyperIdLine.split(",");
-            TreeSet<String> hyperIds = new TreeSet<String>();
+            TreeSet<Integer> hyperIds = new TreeSet<Integer>();
 
             for(int i=1; i < synIdLineWords.length; i++)
-                hyperIds.add(synIdLineWords[i]);
+                hyperIds.add(Integer.parseInt(synIdLineWords[i]));
 
             hyperIdMap.put(synIdLineWords[0], hyperIds);
         }
