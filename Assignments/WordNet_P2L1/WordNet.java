@@ -36,16 +36,16 @@ public class WordNet
         String hyperIdLine;
         String [] hyperIdLineWords;
 
-        while ( ! synsetsIn.isEmpty())
+        while ( ! hypernymsIn.isEmpty())
         {
             hyperIdLine = hypernymsIn.readLine();
-            synIdLineWords = hyperIdLine.split(",");
+            hyperIdLineWords = hyperIdLine.split(",");
             TreeSet<Integer> hyperIds = new TreeSet<Integer>();
 
-            for(int i=1; i < synIdLineWords.length; i++)
-                hyperIds.add(Integer.parseInt(synIdLineWords[i]));
+            for(int i=1; i < hyperIdLineWords.length; i++)
+                hyperIds.add(Integer.parseInt(hyperIdLineWords[i]));
 
-            hyperIdMap.put(Integer.parseInt(synIdLineWords[0]), hyperIds);
+            hyperIdMap.put(Integer.parseInt(hyperIdLineWords[0]), hyperIds);
         }
     }
 
@@ -58,12 +58,22 @@ public class WordNet
     // is the word a WordNet noun?
     public boolean isNoun(String word)
     {
+        if (word == null)
+            return false;
+
         return nouns.values().contains(word);
     }
 
+    private boolean areNouns(String nounA, String nounB)
+    {
+        return isNoun(nounA) && isNoun(nounB);
+    }
     // distance between nounA and nounB (defined below)
     public int distance(String nounA, String nounB)
     {
+        if ( ! areNouns(nounA, nounB))
+            throw new IllegalArgumentException("Atleast one of the nouns are invalid nouns");
+
         return -1;
     }
 
@@ -71,12 +81,15 @@ public class WordNet
     // in a shortest ancestral path (defined below)
     public String sap(String nounA, String nounB)
     {
+        if ( ! areNouns(nounA, nounB))
+            throw new IllegalArgumentException("Atleast one of the nouns are invalid nouns");
+
         return null;
     }
 
     // for unit testing of this class
     public static void main(String[] args)
     {
-            WordNet wn = new WordNet(args[0], args[1]);
+        WordNet wn = new WordNet(args[0], args[1]);
     }
 }
