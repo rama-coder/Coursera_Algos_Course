@@ -32,8 +32,8 @@ public class WordNet
             synIdLineWords = synIdLine.split(",");
             int synId = Integer.parseInt(synIdLineWords[0]);
 
-            nouns.put(synId, synIdLineWords[1]);
-            glossMap.put(synId, synIdLineWords[2]);
+            nouns.put(synId, synIdLineWords[1].trim());
+            glossMap.put(synId, synIdLineWords[2].trim());
         }
 
         String hyperIdLine;
@@ -46,10 +46,27 @@ public class WordNet
             TreeSet<Integer> hyperIds = new TreeSet<Integer>();
 
             for(int i=1; i < hyperIdLineWords.length; i++)
-                hyperIds.add(Integer.parseInt(hyperIdLineWords[i]));
+                hyperIds.add(Integer.parseInt(hyperIdLineWords[i].trim()));
 
             hyperIdMap.put(Integer.parseInt(hyperIdLineWords[0]), hyperIds);
         }
+
+        // Construct the Digraph
+        Digraph G = new Digraph(hyperIdMap.size()+1);
+
+        for (int v:hyperIdMap.keySet())
+        {
+            TreeSet<Integer> hyperNymSet = hyperIdMap.get(v);
+
+            for(int w:hyperNymSet)
+                G.addEdge(v,w);
+        }
+
+        StdOut.printf("Given Digraph is %s", G);
+
+        // Find if G is a rooted DAG
+
+
     }
 
     // the set of nouns (no duplicates), returned as an Iterable
@@ -64,6 +81,8 @@ public class WordNet
         if (word == null)
             return false;
 
+        StdOut.printf("Known nouns are " + nouns.values());
+
         return nouns.values().contains(word);
     }
 
@@ -71,6 +90,7 @@ public class WordNet
     {
         return isNoun(nounA) && isNoun(nounB);
     }
+
     // distance between nounA and nounB (defined below)
     public int distance(String nounA, String nounB)
     {
@@ -98,6 +118,8 @@ public class WordNet
             StdOut.println("Printing nouns and hypernyms...");
 
             for(String noun:wn.nouns())
-                StdOut.println("\n Noun Set => " + noun);
+                StdOut.println(noun);
+
+            StdOut.printf("Is Noun %s",wn.isNoun(args[2]));
     }
 }

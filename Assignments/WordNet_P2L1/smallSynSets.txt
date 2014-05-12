@@ -1,0 +1,6 @@
+0,all_is_well, feel good
+1,not_good, not so good
+2,weird, something different
+3,enjoy, live well
+4,entertainent, sex is best
+5,books, good books are better and fulfilling than sex
