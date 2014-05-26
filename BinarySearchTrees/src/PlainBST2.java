@@ -116,4 +116,30 @@ public class PlainBST2
         return t;
     }
 
+    public int ciel(int key) throws Exception
+    {
+        if (root == null)
+            throw new Exception("Empty tree");
+
+        Node x = ciel(root, key);
+
+        if ( x == null)
+            return -1;
+        return x.value;
+    }
+
+    public Node ciel(Node x, int key)
+    {
+        if (x == null)
+            return null;
+
+        if (key == x.key)
+            return x;
+
+        if (key > x.key)
+            return ciel(x.right, key);
+
+        Node t = ciel(x.left, key);
+        return (t==null)?x:t;
+    }
 }

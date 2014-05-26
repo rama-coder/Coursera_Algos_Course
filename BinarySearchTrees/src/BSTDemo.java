@@ -22,9 +22,10 @@ public class BSTDemo
             int k = -1;
 
             do {
-                StdOut.println("\nEnter the value for finding floor...\n");
+                StdOut.println("\nEnter the value for finding floor and ciel...\n");
                 k = StdIn.readInt();
-                StdOut.printf("floor(%d) = %d", k, bst.floor(k));
+                StdOut.printf("\nfloor(%d) = %d", k, bst.floor(k));
+                StdOut.printf("\nciel(%d) = %d", k, bst.ciel(k));
             }
             while (k != -1);
         }
