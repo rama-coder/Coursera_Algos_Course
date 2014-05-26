@@ -10,11 +10,17 @@ public class PlainBST2
         private Node left, right;
         private int key, value, count;
 
-        public Node(int key, int value)
+        public Node(int key, int value, int count)
         {
             this.key = key;
             this.value = value;
+            this.count = count;
         }
+    }
+
+    private int size(Node x)
+    {
+        return (x==null)?0:( 1 + size(x.left) + size(x.right));
     }
 
     public int get(int key) throws Exception
@@ -40,7 +46,7 @@ public class PlainBST2
     {
         if (root == null)
         {
-            root = new Node(key, value);
+            root = new Node(key, value, 1);
             return;
         }
 
@@ -51,7 +57,7 @@ public class PlainBST2
     {
         if (x == null)
         {
-            return new Node(key, value);
+            return new Node(key, value, 1);
         }
 
         if (key == x.key)
@@ -61,6 +67,8 @@ public class PlainBST2
             x.left = put(x.left, key, value);
         else
             x.right = put(x.right, key, value);
+
+        x.count = 1 + size(x.left) + size(x.right);
 
         return x;
     }
@@ -141,5 +149,24 @@ public class PlainBST2
 
         Node t = ciel(x.left, key);
         return (t==null)?x:t;
+    }
+
+    public int rank(int key)
+    {
+        return rank(root, key);
+    }
+
+    public int rank(Node x, int key)
+    {
+        if (x == null)
+            return 0;
+
+        if (key == x.key)
+            return size(x.left);
+
+        if (key < x.key)
+            return rank(x.left, key);
+
+        return size (x.left) + 1 + rank(x.right, key);
     }
 }
