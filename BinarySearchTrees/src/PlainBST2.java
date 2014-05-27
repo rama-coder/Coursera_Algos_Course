@@ -136,7 +136,7 @@ public class PlainBST2
         return x.value;
     }
 
-    public Node ciel(Node x, int key)
+    private Node ciel(Node x, int key)
     {
         if (x == null)
             return null;
@@ -156,7 +156,7 @@ public class PlainBST2
         return rank(root, key);
     }
 
-    public int rank(Node x, int key)
+    private int rank(Node x, int key)
     {
         if (x == null)
             return 0;
@@ -169,4 +169,25 @@ public class PlainBST2
 
         return size (x.left) + 1 + rank(x.right, key);
     }
+
+    public int select(int k) { return select(root, k).key; }
+
+    private Node select(Node x, int k)
+    {
+        if (x == null)
+            return null;
+
+        int t = size(x.left);
+
+        if (k < t)
+            return select(x.left, k);
+
+        if (k > t)
+            return select(x.right, k-t-1);
+
+        return x;
+
+    }
+
+
 }
